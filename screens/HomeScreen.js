@@ -1,14 +1,27 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import { styled } from "nativewind";
+import NavOptions from "../components/NavOptions";
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
 const HomeScreen = () => {
   return (
-    <StyledView className="flex-1 items-center justify-center">
-      <StyledText className="text-slate-800">I am the home screen.</StyledText>
+    <StyledView className="bg-white h-full">
+      <StyledView className="p-5">
+        <Image
+          style={{
+            width: 100,
+            height: 100,
+            resizeMode: "contain",
+          }}
+          source={{
+            uri: "https://links.papareact.com/gzs",
+          }}
+        />
+        <NavOptions />
+      </StyledView>
     </StyledView>
   );
 };

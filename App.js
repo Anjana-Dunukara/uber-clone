@@ -1,4 +1,3 @@
-import { SafeAreaView } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import HomeScreen from "./screens/HomeScreen";
