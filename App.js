@@ -1,24 +1,16 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import HomeScreen from "./screens/HomeScreen";
+import { withExpoSnack } from "nativewind";
+import { styled } from "nativewind";
 
-export default function App() {
+function App() {
   return (
     <Provider store={store}>
-      <View style={styles.container}>
-        <Text>Let's do react native</Text>
-        <StatusBar style="auto" />
-      </View>
+      <HomeScreen />
     </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export default withExpoSnack(App);
