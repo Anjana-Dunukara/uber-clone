@@ -8,16 +8,19 @@ import {
 } from "react-native";
 import React from "react";
 import { styled } from "nativewind";
+import { Icon } from "@rneui/base";
+import { useNavigation } from "@react-navigation/native";
 
 const StyledTouchableOpacity = styled(TouchableOpacity);
 const StyledText = styled(Text);
+const StyledIcon = styled(Icon);
 
 const data = [
   {
     id: "123",
     title: " Get a ride",
     image: "https://links.papareact.com/3pn",
-    screen: "MapScrren",
+    screen: "MapScreen",
   },
   {
     id: "456",
@@ -28,13 +31,17 @@ const data = [
 ];
 
 const NavOptions = () => {
+  const navigation = useNavigation();
   return (
     <FlatList
       data={data}
       horizontal
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <StyledTouchableOpacity className="p-2 pb-8 pt-4 bg-gray-200 m-2 w-40">
+        <StyledTouchableOpacity
+          onPress={() => navigation.navigate(item.screen)}
+          className="p-2 pb-8 pt-4 bg-gray-200 m-2 w-40"
+        >
           <View>
             <Image
               style={{
@@ -44,10 +51,16 @@ const NavOptions = () => {
               }}
               source={{ uri: item.image }}
             />
+            <StyledText className="mt-2 text-lg font-semibold">
+              {item.title}
+            </StyledText>
+            <StyledIcon
+              className="p-2 bg-black rounded-full w-10 mt-4"
+              name="arrowright"
+              color="white"
+              type="antdesign"
+            />
           </View>
-          <StyledText className="mt-2 text-lg font-semibold">
-            {item.title}
-          </StyledText>
         </StyledTouchableOpacity>
       )}
     />

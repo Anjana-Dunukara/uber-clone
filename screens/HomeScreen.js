@@ -4,7 +4,6 @@ import { styled } from "nativewind";
 import NavOptions from "../components/NavOptions";
 
 const StyledView = styled(View);
-const StyledText = styled(Text);
 
 const HomeScreen = () => {
   return (
