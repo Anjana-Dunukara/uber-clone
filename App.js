@@ -12,15 +12,22 @@ function App() {
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <SafeAreaProvider>
-          <Stack.Navigator>
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen name="MapScreen" component={MapScreen} />
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="HomeScreen">
+            <Stack.Screen
+              name="HomeScreen"
+              component={HomeScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="MapScreen"
+              component={MapScreen}
+              options={{ headerShown: false }}
+            />
           </Stack.Navigator>
-          <HomeScreen />
-        </SafeAreaProvider>
-      </NavigationContainer>
+        </NavigationContainer>
+      </SafeAreaProvider>
     </Provider>
   );
 }

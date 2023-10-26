@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import { styled } from "nativewind";
 import NavOptions from "../components/NavOptions";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { GOOGLE_MAPS_APIKEY } from "@env";
 
 const StyledView = styled(View);
 
@@ -17,6 +19,32 @@ const HomeScreen = () => {
           }}
           source={{
             uri: "https://links.papareact.com/gzs",
+          }}
+        />
+
+        <GooglePlacesAutocomplete
+          styles={{
+            container: {
+              flex: 0,
+            },
+            textInput: {
+              fontSize: 18,
+            },
+          }}
+          nearbyPlacesAPI="GooglePlacesSearch"
+          debounce={400}
+          placeholder="Where From?"
+          onPress={(data, details = null) => {
+            // 'details' is provided when fetchDetails = true
+            console.log(data, details);
+          }}
+          fetchDetails={true}
+          returnKeyType={"search"}
+          enablePoweredByContainer={false}
+          minLength={2}
+          query={{
+            key: GOOGLE_MAPS_APIKEY,
+            language: "en",
           }}
         />
         <NavOptions />
