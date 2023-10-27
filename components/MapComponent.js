@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import React, { useState } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { styled } from "nativewind";
@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { selectOrigin } from "../slices/navSlice";
 
 const StyledMapView = styled(MapView);
+const screenHeight = Dimensions.get("window").height;
 
 const MapComponent = () => {
   const origin = useSelector(selectOrigin);
@@ -20,6 +21,7 @@ const MapComponent = () => {
   return (
     <StyledMapView
       className="flex-1"
+      style={{ minHeight: screenHeight * 0.5 }}
       mapType="mutedStandard"
       initialRegion={initialRegion}
       onRegionChangeComplete={(region) => setInitialRegion(region)}

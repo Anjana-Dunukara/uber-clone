@@ -10,9 +10,12 @@ import React from "react";
 import { styled } from "nativewind";
 import { Icon } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { selectOrigin } from "../slices/navSlice";
 
 const StyledTouchableOpacity = styled(TouchableOpacity);
 const StyledText = styled(Text);
+const StyledView = styled(View);
 const StyledIcon = styled(Icon);
 
 const data = [
@@ -32,6 +35,8 @@ const data = [
 
 const NavOptions = () => {
   const navigation = useNavigation();
+  const origin = useSelector(selectOrigin);
+
   return (
     <FlatList
       data={data}
@@ -41,8 +46,9 @@ const NavOptions = () => {
         <StyledTouchableOpacity
           onPress={() => navigation.navigate(item.screen)}
           className="p-2 pb-8 pt-4 bg-gray-200 m-2 w-40"
+          disabled={!origin}
         >
-          <View>
+          <StyledView className={`${!origin && "opacity-20"}`}>
             <Image
               style={{
                 width: 120,
@@ -60,7 +66,7 @@ const NavOptions = () => {
               color="white"
               type="antdesign"
             />
-          </View>
+          </StyledView>
         </StyledTouchableOpacity>
       )}
     />
