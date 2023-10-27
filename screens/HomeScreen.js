@@ -4,10 +4,14 @@ import { styled } from "nativewind";
 import NavOptions from "../components/NavOptions";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
+import { useDispatch } from "react-redux";
+import { setDestination, setOrigin } from "../slices/navSlice";
 
 const StyledView = styled(View);
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
+
   return (
     <StyledView className="bg-white h-full">
       <StyledView className="p-5">
@@ -35,8 +39,14 @@ const HomeScreen = () => {
           debounce={400}
           placeholder="Where From?"
           onPress={(data, details = null) => {
-            // 'details' is provided when fetchDetails = true
-            console.log(data, details);
+            dispatch(
+              setOrigin({
+                location: details.geometry.location,
+                description: data.description,
+              })
+            );
+
+            dispatch(setDestination(null));
           }}
           fetchDetails={true}
           returnKeyType={"search"}
