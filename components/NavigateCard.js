@@ -3,12 +3,18 @@ import React from "react";
 import { styled } from "nativewind";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
+import { setDestination } from "../slices/navSlice";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 const StyledSafeAreaView = styled(SafeAreaView);
 const StyledText = styled(Text);
 const StyledView = styled(View);
 
 const NavigateCard = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
   return (
     <StyledSafeAreaView className="bg-white flex-1">
       <StyledText className="text-center py-5 text-xl">
@@ -16,26 +22,19 @@ const NavigateCard = () => {
       </StyledText>
       <StyledView className="flex-shrink" style={{ borderColor: "gray-200" }}>
         <GooglePlacesAutocomplete
-          styles={{
-            container: {
-              flex: 0,
-            },
-            textInput: {
-              fontSize: 18,
-            },
-          }}
+          styles={styles}
           nearbyPlacesAPI="GooglePlacesSearch"
           debounce={400}
           placeholder="Where To?"
           onPress={(data, details = null) => {
             dispatch(
-              setOrigin({
+              setDestination({
                 location: details.geometry.location,
                 description: data.description,
               })
             );
 
-            dispatch(setDestination(null));
+            navigation.navigate("RideOptionsCard");
           }}
           fetchDetails={true}
           returnKeyType={"search"}
@@ -53,4 +52,19 @@ const NavigateCard = () => {
 
 export default NavigateCard;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+    borderRadius: 0,
+    flex: 0,
+  },
+  textInput: {
+    backgroundColor: "#DDDDDF",
+    borderRadius: 0,
+    fontSize: 18,
+  },
+  textInputContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 0,
+  },
+});
