@@ -6,17 +6,23 @@ import MapComponent from "../components/MapComponent";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import NavigateCard from "../components/NavigateCard";
 import RideOptionsCard from "../components/RideOptionsCard";
+import { useNavigation } from "@react-navigation/native";
 
 const StyledView = styled(View);
 const StyledTouchableOpacity = styled(TouchableOpacity);
-const StyledText = styled(Text);
-const StyledIcon = styled(Icon);
 
 const Stack = createNativeStackNavigator();
 
 const MapScreen = () => {
+  const navigation = useNavigation();
   return (
     <View>
+      <StyledTouchableOpacity
+        onPress={() => navigation.navigate("HomeScreen")}
+        className="bg-gray-100 absolute top-16 left-8 z-50 p-3 rounded-full"
+      >
+        <Icon name="menu" />
+      </StyledTouchableOpacity>
       <StyledView className="h-1/2">
         <MapComponent />
       </StyledView>

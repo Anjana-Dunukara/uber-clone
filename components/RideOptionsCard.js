@@ -41,6 +41,8 @@ const data = [
   },
 ];
 
+const SURGE_CHARGE_RATE = 1.5;
+
 const RideOptionsCard = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
@@ -57,7 +59,7 @@ const RideOptionsCard = () => {
           <StyledIcon name="chevron-left" type="fontawesome" />
         </StyledTouchableOpacity>
         <StyledText className="text-center py-5 text-xl">
-          Select a Ride - {travelTimeInformation?.distance.text}
+          Select a Ride - {travelTimeInformation?.distance?.text}
         </StyledText>
       </View>
 
@@ -82,10 +84,20 @@ const RideOptionsCard = () => {
             <StyledView className="-ml-6">
               <StyledText className="text-xl font-semibold">{title}</StyledText>
               <StyledText>
-                {travelTimeInformation?.duration.text} Travel Time
+                {travelTimeInformation?.duration?.text} Travel Time
               </StyledText>
             </StyledView>
-            <StyledText className="text-xl">$69</StyledText>
+            <StyledText className="text-xl">
+              {new Intl.NumberFormat("en-us", {
+                style: "currency",
+                currency: "USD",
+              }).format(
+                (travelTimeInformation?.duration?.value *
+                  SURGE_CHARGE_RATE *
+                  multiplier) /
+                  100
+              )}
+            </StyledText>
           </StyledTouchableOpacity>
         )}
       />
