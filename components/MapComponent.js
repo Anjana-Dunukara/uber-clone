@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { styled } from "nativewind";
 import { useSelector } from "react-redux";
@@ -14,6 +14,8 @@ const MapComponent = () => {
   const origin = useSelector(selectOrigin);
   const destination = useSelector(selectDestination);
 
+  const mapRef = useRef(null);
+
   const [initialRegion, setInitialRegion] = useState({
     latitude: origin.location.lat,
     longitude: origin.location.lng,
@@ -21,8 +23,18 @@ const MapComponent = () => {
     longitudeDelta: 0.005,
   });
 
+  useEffect(() => {
+    if (!origin || !destination) return;
+
+    //zoom and fit to markers
+    mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
+      edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+    });
+  }, [origin, destination]);
+
   return (
     <StyledMapView
+      ref={mapRef}
       className="flex-1"
       style={{ minHeight: screenHeight * 0.5 }}
       mapType="mutedStandard"
@@ -48,6 +60,17 @@ const MapComponent = () => {
           title="Origin"
           description={origin.description}
           identifier="origin"
+        />
+      )}
+      {destination?.location && (
+        <Marker
+          coordinate={{
+            latitude: destination.location.lat,
+            longitude: destination.location.lng,
+          }}
+          title="Destination"
+          description={destination.description}
+          identifier="destination"
         />
       )}
     </StyledMapView>

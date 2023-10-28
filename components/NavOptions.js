@@ -45,7 +45,7 @@ const NavOptions = () => {
       renderItem={({ item }) => (
         <StyledTouchableOpacity
           onPress={() => navigation.navigate(item.screen)}
-          className="p-2 pb-8 pt-4 bg-gray-200 m-2 w-40"
+          className="p-2 pb-8 pt-4 m-2 w-40 bg-gray-200"
           disabled={!origin}
         >
           <StyledView className={`${!origin && "opacity-20"}`}>

@@ -6,6 +6,7 @@ import { GOOGLE_MAPS_APIKEY } from "@env";
 import { setDestination } from "../slices/navSlice";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import NavFavorites from "./NavFavorites";
 
 const StyledSafeAreaView = styled(SafeAreaView);
 const StyledText = styled(Text);
@@ -20,7 +21,7 @@ const NavigateCard = () => {
       <StyledText className="text-center py-5 text-xl">
         Good Morning, Anjana
       </StyledText>
-      <StyledView className="flex-shrink" style={{ borderColor: "gray-200" }}>
+      <StyledView className="flex-shrink ">
         <GooglePlacesAutocomplete
           styles={styles}
           nearbyPlacesAPI="GooglePlacesSearch"
@@ -45,6 +46,7 @@ const NavigateCard = () => {
             language: "en",
           }}
         />
+        <NavFavorites />
       </StyledView>
     </StyledSafeAreaView>
   );
