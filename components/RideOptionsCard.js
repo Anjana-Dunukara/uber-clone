@@ -7,18 +7,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { styled } from "nativewind";
 import { useNavigation } from "@react-navigation/native";
 import { Icon } from "@rneui/base";
 import { FlatList } from "react-native";
 import { useSelector } from "react-redux";
 import { selectTravelTimeInformation } from "../slices/navSlice";
-
-const StyledTouchableOpacity = styled(TouchableOpacity);
-const StyledText = styled(Text);
-const StyledView = styled(View);
-const StyledSafeAreaView = styled(SafeAreaView);
-const StyledIcon = styled(Icon);
+import tw from "twrnc";
 
 const data = [
   {
@@ -50,28 +44,29 @@ const RideOptionsCard = () => {
   const travelTimeInformation = useSelector(selectTravelTimeInformation);
 
   return (
-    <StyledSafeAreaView className="bg-white flex-grow">
+    <SafeAreaView style={tw`bg-white flex-grow`}>
       <View>
-        <StyledTouchableOpacity
+        <TouchableOpacity
           onPress={() => navigation.navigate("NavigateCard")}
-          className="absolute top-3 left-5 p-3 rounded-full"
+          style={tw`absolute top-3 left-5 p-3 rounded-full`}
         >
-          <StyledIcon name="chevron-left" type="fontawesome" />
-        </StyledTouchableOpacity>
-        <StyledText className="text-center py-5 text-xl">
+          <Icon name="chevron-left" type="fontawesome" />
+        </TouchableOpacity>
+        <Text style={tw`text-center py-5 text-xl`}>
           Select a Ride - {travelTimeInformation?.distance?.text}
-        </StyledText>
+        </Text>
       </View>
 
       <FlatList
         data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item: { id, image, title, multiplier }, item }) => (
-          <StyledTouchableOpacity
+          <TouchableOpacity
             onPress={() => setSelected(item)}
-            className={`flex-row justify-between items-center px-10 ${
-              id === selected?.id && "bg-gray-200"
-            }`}
+            style={[
+              tw`flex-row justify-between items-center px-10`,
+              id === selected?.id && tw`bg-gray-200`,
+            ]}
           >
             <Image
               style={{
@@ -81,13 +76,11 @@ const RideOptionsCard = () => {
               }}
               source={{ uri: image }}
             />
-            <StyledView className="-ml-6">
-              <StyledText className="text-xl font-semibold">{title}</StyledText>
-              <StyledText>
-                {travelTimeInformation?.duration?.text} Travel Time
-              </StyledText>
-            </StyledView>
-            <StyledText className="text-xl">
+            <View style={tw`-ml-6`}>
+              <Text style={tw`text-xl font-semibold`}>{title}</Text>
+              <Text>{travelTimeInformation?.duration?.text} Travel Time</Text>
+            </View>
+            <Text style={tw`text-xl`}>
               {new Intl.NumberFormat("en-us", {
                 style: "currency",
                 currency: "USD",
@@ -97,21 +90,21 @@ const RideOptionsCard = () => {
                   multiplier) /
                   100
               )}
-            </StyledText>
-          </StyledTouchableOpacity>
+            </Text>
+          </TouchableOpacity>
         )}
       />
-      <StyledView>
-        <StyledTouchableOpacity
+      <View>
+        <TouchableOpacity
           disabled={!selected}
-          className={`bg-black py-3 m-3 ${!selected && "bg-gray-300"}`}
+          style={tw`bg-black py-3 m-3 ${!selected ? "bg-gray-300" : ""}`}
         >
-          <StyledText className="text-center text-white text-xl">
+          <Text style={tw`text-center text-white text-xl`}>
             Choose {selected?.title}
-          </StyledText>
-        </StyledTouchableOpacity>
-      </StyledView>
-    </StyledSafeAreaView>
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,21 +1,19 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
-import { styled } from "nativewind";
 import NavOptions from "../components/NavOptions";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { useDispatch } from "react-redux";
 import { setDestination, setOrigin } from "../slices/navSlice";
 import NavFavorites from "../components/NavFavorites";
-
-const StyledView = styled(View);
+import tw from "twrnc";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
   return (
-    <StyledView className="bg-white h-full">
-      <StyledView className="p-5">
+    <View style={tw`bg-white h-full`}>
+      <View style={tw`p-5`}>
         <Image
           style={{
             width: 100,
@@ -59,8 +57,8 @@ const HomeScreen = () => {
         />
         <NavOptions />
         <NavFavorites />
-      </StyledView>
-    </StyledView>
+      </View>
+    </View>
   );
 };
 

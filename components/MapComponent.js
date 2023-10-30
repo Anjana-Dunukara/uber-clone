@@ -1,7 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
-import { styled } from "nativewind";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectOrigin,
@@ -10,8 +9,8 @@ import {
 } from "../slices/navSlice";
 import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_MAPS_APIKEY } from "@env";
+import tw from "twrnc";
 
-const StyledMapView = styled(MapView);
 const screenHeight = Dimensions.get("window").height;
 
 const MapComponent = () => {
@@ -54,10 +53,9 @@ const MapComponent = () => {
     getTravelTime();
   }, [origin, destination, GOOGLE_MAPS_APIKEY]);
   return (
-    <StyledMapView
+    <MapView
       ref={mapRef}
-      className="flex-1"
-      style={{ minHeight: screenHeight * 0.5 }}
+      style={[tw`flex-1`, { minHeight: screenHeight * 0.5 }]}
       mapType="mutedStandard"
       initialRegion={initialRegion}
       onRegionChangeComplete={(region) => setInitialRegion(region)}
@@ -94,7 +92,7 @@ const MapComponent = () => {
           identifier="destination"
         />
       )}
-    </StyledMapView>
+    </MapView>
   );
 };
 

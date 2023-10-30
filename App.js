@@ -1,7 +1,6 @@
 import { Provider } from "react-redux";
 import { store } from "./store";
 import HomeScreen from "./screens/HomeScreen";
-import { withExpoSnack } from "nativewind";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -39,4 +38,4 @@ function App() {
   );
 }
 
-export default withExpoSnack(App);
+export default App;

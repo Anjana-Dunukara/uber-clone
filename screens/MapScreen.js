@@ -1,15 +1,12 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { Icon } from "@rneui/base";
-import { styled } from "nativewind";
 import MapComponent from "../components/MapComponent";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import NavigateCard from "../components/NavigateCard";
 import RideOptionsCard from "../components/RideOptionsCard";
 import { useNavigation } from "@react-navigation/native";
-
-const StyledView = styled(View);
-const StyledTouchableOpacity = styled(TouchableOpacity);
+import tw from "twrnc";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,16 +14,16 @@ const MapScreen = () => {
   const navigation = useNavigation();
   return (
     <View>
-      <StyledTouchableOpacity
+      <TouchableOpacity
         onPress={() => navigation.navigate("HomeScreen")}
-        className="bg-gray-100 absolute top-16 left-8 z-50 p-3 rounded-full"
+        style={tw`bg-gray-100 absolute top-16 left-8 z-50 p-3 rounded-full`}
       >
         <Icon name="menu" />
-      </StyledTouchableOpacity>
-      <StyledView className="h-1/2">
+      </TouchableOpacity>
+      <View style={tw`h-1/2`}>
         <MapComponent />
-      </StyledView>
-      <StyledView className="h-1/2">
+      </View>
+      <View style={tw`h-1/2`}>
         <Stack.Navigator>
           <Stack.Screen
             name="NavigateCard"
@@ -43,7 +40,7 @@ const MapScreen = () => {
             }}
           />
         </Stack.Navigator>
-      </StyledView>
+      </View>
     </View>
   );
 };

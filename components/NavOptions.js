@@ -7,16 +7,11 @@ import {
   Text,
 } from "react-native";
 import React from "react";
-import { styled } from "nativewind";
 import { Icon } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { selectOrigin } from "../slices/navSlice";
-
-const StyledTouchableOpacity = styled(TouchableOpacity);
-const StyledText = styled(Text);
-const StyledView = styled(View);
-const StyledIcon = styled(Icon);
+import tw from "twrnc";
 
 const data = [
   {
@@ -43,12 +38,12 @@ const NavOptions = () => {
       horizontal
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <StyledTouchableOpacity
+        <TouchableOpacity
           onPress={() => navigation.navigate(item.screen)}
-          className="p-2 pb-8 pt-4 m-2 w-40 bg-gray-200"
+          style={tw`p-2 pb-8 pt-4 m-2 w-40 bg-gray-200`}
           disabled={!origin}
         >
-          <StyledView className={`${!origin && "opacity-20"}`}>
+          <View style={tw`${!origin ? "opacity-20" : ""}`}>
             <Image
               style={{
                 width: 120,
@@ -57,17 +52,15 @@ const NavOptions = () => {
               }}
               source={{ uri: item.image }}
             />
-            <StyledText className="mt-2 text-lg font-semibold">
-              {item.title}
-            </StyledText>
-            <StyledIcon
-              className="p-2 bg-black rounded-full w-10 mt-4"
+            <Text style={tw`mt-2 text-lg font-semibold`}>{item.title}</Text>
+            <Icon
+              style={tw`p-2 bg-black rounded-full w-10 mt-4`}
               name="arrowright"
               color="white"
               type="antdesign"
             />
-          </StyledView>
-        </StyledTouchableOpacity>
+          </View>
+        </TouchableOpacity>
       )}
     />
   );

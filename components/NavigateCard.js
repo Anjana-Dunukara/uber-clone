@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
-import { styled } from "nativewind";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { setDestination } from "../slices/navSlice";
@@ -14,22 +13,16 @@ import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import NavFavorites from "./NavFavorites";
 import { Icon } from "@rneui/base";
-
-const StyledSafeAreaView = styled(SafeAreaView);
-const StyledText = styled(Text);
-const StyledView = styled(View);
-const StyledTouchableOpacity = styled(TouchableOpacity);
+import tw from "twrnc";
 
 const NavigateCard = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   return (
-    <StyledSafeAreaView className="bg-white flex-1">
-      <StyledText className="text-center py-5 text-xl">
-        Good Morning, Anjana
-      </StyledText>
-      <StyledView className="flex-shrink ">
+    <SafeAreaView style={tw`bg-white flex-1`}>
+      <Text style={tw`text-center py-5 text-xl`}>Good Morning, Anjana</Text>
+      <View style={tw`flex-shrink`}>
         <GooglePlacesAutocomplete
           styles={styles}
           nearbyPlacesAPI="GooglePlacesSearch"
@@ -55,29 +48,33 @@ const NavigateCard = () => {
           }}
         />
         <NavFavorites />
-      </StyledView>
-      <StyledView
-        className="flex-row bg-white justify-evenly py-2 mt-auto border-gray-100"
-        style={{ borderTop: 0.5 }}
+      </View>
+      <View
+        style={[
+          tw`flex-row bg-white justify-evenly py-2 mt-auto border-gray-100`,
+          { borderTopWidth: 0.5 },
+        ]}
       >
-        <StyledTouchableOpacity
-          className="felx flex-row justify-between bg-black w-24 px-4 py-3 rounded-full"
+        <TouchableOpacity
+          style={tw`flex flex-row justify-between bg-black w-24 px-4 py-3 rounded-full`}
           onPress={() => navigation.navigate("RideOptionsCard")}
         >
           <Icon name="car" type="font-awesome" color="white" size={16}></Icon>
-          <StyledText className="text-white text-center">Rides</StyledText>
-        </StyledTouchableOpacity>
-        <StyledTouchableOpacity className="felx flex-row justify-between w-24 px-4 py-3 rounded-full">
+          <Text style={tw`text-white text-center`}>Rides</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={tw`flex flex-row justify-between w-24 px-4 py-3 rounded-full`}
+        >
           <Icon
             name="fast-food-outline"
             type="ionicon"
             color="black"
             size={16}
           ></Icon>
-          <StyledText className="text-center">Eats</StyledText>
-        </StyledTouchableOpacity>
-      </StyledView>
-    </StyledSafeAreaView>
+          <Text style={tw`text-center`}>Eats</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
