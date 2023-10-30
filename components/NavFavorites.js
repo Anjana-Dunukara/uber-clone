@@ -3,7 +3,7 @@ import React from "react";
 import { FlatList } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Icon } from "@rneui/base";
-import tw from "tailwind-react-native-classnames";
+import tw from "twrnc";
 
 const data = [
   {

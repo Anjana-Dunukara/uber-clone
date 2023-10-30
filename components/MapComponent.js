@@ -9,7 +9,9 @@ import {
 } from "../slices/navSlice";
 import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_MAPS_APIKEY } from "@env";
-import tw from "tailwind-react-native-classnames";
+import tw from "twrnc";
+
+const screenHeight = Dimensions.get("window").height;
 
 const MapComponent = () => {
   const origin = useSelector(selectOrigin);

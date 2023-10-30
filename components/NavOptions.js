@@ -11,7 +11,7 @@ import { Icon } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { selectOrigin } from "../slices/navSlice";
-import tw from "tailwind-react-native-classnames";
+import tw from "twrnc";
 
 const data = [
   {
@@ -43,7 +43,7 @@ const NavOptions = () => {
           style={tw`p-2 pb-8 pt-4 m-2 w-40 bg-gray-200`}
           disabled={!origin}
         >
-          <View className={`${!origin && "opacity-20"}`}>
+          <View style={tw`${!origin ? "opacity-20" : ""}`}>
             <Image
               style={{
                 width: 120,

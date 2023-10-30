@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import NavFavorites from "./NavFavorites";
 import { Icon } from "@rneui/base";
-import tw from "tailwind-react-native-classnames";
+import tw from "twrnc";
 
 const NavigateCard = () => {
   const dispatch = useDispatch();
@@ -56,14 +56,14 @@ const NavigateCard = () => {
         ]}
       >
         <TouchableOpacity
-          style={tw`felx flex-row justify-between bg-black w-24 px-4 py-3 rounded-full`}
+          style={tw`flex flex-row justify-between bg-black w-24 px-4 py-3 rounded-full`}
           onPress={() => navigation.navigate("RideOptionsCard")}
         >
           <Icon name="car" type="font-awesome" color="white" size={16}></Icon>
           <Text style={tw`text-white text-center`}>Rides</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={tw`felx flex-row justify-between w-24 px-4 py-3 rounded-full`}
+          style={tw`flex flex-row justify-between w-24 px-4 py-3 rounded-full`}
         >
           <Icon
             name="fast-food-outline"
