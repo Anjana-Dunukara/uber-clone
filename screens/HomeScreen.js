@@ -1,76 +1,63 @@
-import { StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
-import { styled } from "nativewind";
-import NavOptions from "../components/NavOptions";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { View, Text, SafeAreaView, Image } from 'react-native';
+import React from 'react';
+import NavOptions from '../components/NavOptions';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { useDispatch } from "react-redux";
 import { setDestination, setOrigin } from "../slices/navSlice";
-import NavFavorites from "../components/NavFavorites";
-
-const StyledView = styled(View);
+import NavFavourites from '../components/NavFavourites';
 
 const HomeScreen = () => {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  return (
-    <StyledView className="bg-white h-full">
-      <StyledView className="p-5">
-        <Image
-          style={{
-            width: 100,
-            height: 100,
-            resizeMode: "contain",
-          }}
-          source={{
-            uri: "https://links.papareact.com/gzs",
-          }}
-        />
-        <GooglePlacesAutocomplete
-          styles={{
-            container: {
-              flex: 0,
-            },
-            textInput: {
-              fontSize: 18,
-            },
-          }}
-          nearbyPlacesAPI="GooglePlacesSearch"
-          debounce={400}
-          placeholder="Where From?"
-          onPress={(data, details = null) => {
-            dispatch(
-              setOrigin({
-                location: details.geometry.location,
-                description: data.description,
-              })
-            );
+    return (
+        <SafeAreaView className="h-full bg-white p-5">
+            <View className="px-5">
+                <Image
+                    style={{
+                        width: 100,
+                        height: 100,
+                        resizeMode: 'contain',
+                    }}
+                    source={{
+                        uri: "https://links.papareact.com/gzs"
+                    }}
+                />
 
-            dispatch(setDestination(null));
-          }}
-          fetchDetails={true}
-          returnKeyType={"search"}
-          enablePoweredByContainer={false}
-          minLength={2}
-          query={{
-            key: GOOGLE_MAPS_APIKEY,
-            language: "en",
-          }}
-        />
-        <NavOptions />
-        <NavFavorites />
-      </StyledView>
-    </StyledView>
-  );
-};
+                <GooglePlacesAutocomplete
+                    placeholder="Where From?"
+                    styles={{
+                        container: {
+                            flex: 0,
+                        },
+                        textInput: {
+                            fontSize: 18,
+                        },
+                    }}
+                    onPress={(data, details = null) => {
+                        dispatch(setOrigin({
+                            location: details.geometry.location,
+                            description: data.description,
+                        }));
 
-export default HomeScreen;
+                        dispatch(setDestination(null));
+                    }}
+                    fetchDetails={true}
+                    enablePoweredByContainer={false}
+                    minLength={2}
+                    query={{
+                        key: GOOGLE_MAPS_APIKEY,
+                        language: 'en',
+                    }}
+                    nearbyPlacesAPI="GooglePlacesSearch"
+                    debounce={400}
+                />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+                <NavOptions />
+                <NavFavourites />
+            </View>
+        </SafeAreaView>
+    )
+}
+
+export default HomeScreen

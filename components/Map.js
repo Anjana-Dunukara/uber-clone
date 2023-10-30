@@ -1,42 +1,47 @@
-import { StyleSheet, Dimensions } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import MapView, { Marker } from "react-native-maps";
-import { styled } from "nativewind";
+import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import MapView, { Marker } from "react-native-maps";
 import {
-  selectOrigin,
   selectDestination,
+  selectOrigin,
   setTravelTimeInformation,
 } from "../slices/navSlice";
 import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 
-const StyledMapView = styled(MapView);
-const screenHeight = Dimensions.get("window").height;
-
-const MapComponent = () => {
+const Map = () => {
   const origin = useSelector(selectOrigin);
   const destination = useSelector(selectDestination);
-
-  const dispatch = useDispatch();
-
   const mapRef = useRef(null);
-
-  const [initialRegion, setInitialRegion] = useState({
-    latitude: origin.location.lat,
-    longitude: origin.location.lng,
-    latitudeDelta: 0.005,
-    longitudeDelta: 0.005,
-  });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!origin || !destination) return;
 
-    //zoom and fit to markers
     mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
       edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
     });
   }, [origin, destination]);
+
+  {
+    origin
+      ? console.log(
+          `Origin: ${origin.location} is a ${typeof origin.location} \n ${
+            origin.description
+          }\n`
+        )
+      : console.log("🤐🤐");
+  }
+
+  {
+    destination
+      ? console.log(
+          `Destination: ${
+            destination.location
+          } is a ${typeof destination.location} \n ${destination.description}\n`
+        )
+      : console.log("🙃🙃");
+  }
 
   useEffect(() => {
     if (!origin || !destination) return;
@@ -47,20 +52,25 @@ const MapComponent = () => {
       )
         .then((res) => res.json())
         .then((data) => {
+          // console.log(data);
           dispatch(setTravelTimeInformation(data.rows[0].elements[0]));
         });
     };
 
     getTravelTime();
   }, [origin, destination, GOOGLE_MAPS_APIKEY]);
+
   return (
-    <StyledMapView
+    <MapView
       ref={mapRef}
-      className="flex-1"
-      style={{ minHeight: screenHeight * 0.5 }}
+      style={{ height: "100%", width: "100%" }}
       mapType="mutedStandard"
-      initialRegion={initialRegion}
-      onRegionChangeComplete={(region) => setInitialRegion(region)}
+      initialRegion={{
+        latitude: origin.location.lat,
+        longitude: origin.location.lng,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
+      }}
     >
       {origin && destination && (
         <MapViewDirections
@@ -94,10 +104,8 @@ const MapComponent = () => {
           identifier="destination"
         />
       )}
-    </StyledMapView>
+    </MapView>
   );
 };
 
-export default MapComponent;
-
-const styles = StyleSheet.create({});
+export default Map;
