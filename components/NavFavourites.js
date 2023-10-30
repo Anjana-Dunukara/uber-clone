@@ -9,6 +9,7 @@ import {
   setOrigin,
 } from "../slices/navSlice";
 import { useNavigation } from "@react-navigation/native";
+import tw from "tailwind-react-native-classnames";
 
 const data = [
   {

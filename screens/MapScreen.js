@@ -14,6 +14,7 @@ import NavigateCard from "../components/NavigateCard";
 import RideOptionsCard from "../components/RideOptionsCard";
 import { Icon } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
+import tw from "tailwind-react-native-classnames";
 
 const MapScreen = () => {
   const Stack = createNativeStackNavigator();
@@ -23,14 +24,14 @@ const MapScreen = () => {
     <View>
       <TouchableOpacity
         onPress={() => navigation.navigate("HomeScreen")}
-        className="absolute bg-gray-100 p-3 rounded-full top-16 left-8 shadow-lg z-50"
+        style={tw`absolute bg-gray-100 p-3 rounded-full top-16 left-8 shadow-lg z-50`}
       >
         <Icon name="menu" />
       </TouchableOpacity>
-      <View className=" max-h-[50%] flex-shrink">
+      <View style={tw` max-h-[50%] flex-shrink`}>
         <Map />
       </View>
-      <View className="h-1/2" onPress={Keyboard.dismiss}>
+      <View style={tw`h-1/2`} onPress={Keyboard.dismiss}>
         <Stack.Navigator>
           <Stack.Screen
             name="NavigateCard"

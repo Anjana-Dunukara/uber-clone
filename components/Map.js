@@ -8,6 +8,7 @@ import {
 } from "../slices/navSlice";
 import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_MAPS_APIKEY } from "@env";
+import tw from "tailwind-react-native-classnames";
 
 const Map = () => {
   const origin = useSelector(selectOrigin);

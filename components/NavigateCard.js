@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { setDestination } from "../slices/navSlice";
 import NavFavourites from "./NavFavourites";
 import { Icon } from "@rneui/base";
+import tw from "tailwind-react-native-classnames";
 
 const NavigateCard = () => {
   const dispatch = useDispatch();

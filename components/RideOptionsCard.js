@@ -11,6 +11,7 @@ import { Icon } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { selectTravelTimeInformation } from "../slices/navSlice";
+import tw from "tailwind-react-native-classnames";
 
 const data = [
   {
@@ -45,7 +46,6 @@ const RideOptionsCard = () => {
       <View>
         <TouchableOpacity
           onPress={() => {
-            console.log("😡😡😡");
             navigation.navigate("NavigateCard");
           }}
           className="absolute p-3 rounded-full top-3 left-5 z-50"
